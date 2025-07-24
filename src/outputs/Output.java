@@ -2,6 +2,8 @@ package outputs;
 
 import adresses.Address;
 
+import java.util.Map;
+
 public class Output {
 
     public void init() {
@@ -39,6 +41,13 @@ public class Output {
 
     public void noSuchAddress(Address address) {
         System.out.printf("Адрес %S %S не обслуживается.\n", address.getCountry(), address.getCity());
+    }
+
+    public void uniqueCountries(Map<String, Integer> counter) {
+        System.out.printf("Количество уникальных стран в заках: %d\n", counter.size());
+        for (Map.Entry<String, Integer> country : counter.entrySet()) {
+            System.out.printf("Страна: %s, отправлено %d\n", country.getKey(), country.getValue());
+        }
     }
 }
 //Заполнение нового заказа.

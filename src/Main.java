@@ -3,6 +3,7 @@ import inputs.UserInput;
 import outputs.Output;
 
 import java.io.IOException;
+import java.util.HashMap;
 import java.util.Map;
 
 import static inputs.FileInput.loadFromCSV;
@@ -16,6 +17,9 @@ public class Main {
             //Объект для хранения адресов и цен
             Map<Address, Integer> costPerAddress = loadFromCSV("ListOfCountries.csv");
 
+            //Объект для учета уникальных стран
+            Map<String, Integer> uniqueCountriesCounters = new HashMap<>();
+
             output.init(); //Приветственное сообщение
 
             while (true) {
@@ -26,14 +30,20 @@ public class Main {
                 if (country.equals("end")) {
                     break;
                 }
+                if (uniqueCountriesCounters.containsKey(country)){
+                    uniqueCountriesCounters.replace(country, uniqueCountriesCounters.get(country) + 1);
+                } else{
+                    uniqueCountriesCounters.put(country, 1);
+
+                }
 
                 output.city();
                 String city = userInput.input(); // Вводим название города
                 if (city.equals("end")) {
                     break;
                 }
-                Address address = new Address(country, city);
-                System.out.println(address);//Создаем объект, чтобы использовать его как ключ и проверить наличие в мапе
+                Address address = new Address(country, city);//Создаем объект, чтобы использовать его как ключ и проверить наличие в мапе
+
                 if (!costPerAddress.containsKey(address)){
                     output.noSuchAddress(address);
                     continue;
@@ -48,6 +58,7 @@ public class Main {
                     totalCost = totalCost + cost;
                     output.totalCost(totalCost);
                 }
+                output.uniqueCountries(uniqueCountriesCounters);
             }
 
             output.gameOver();
@@ -58,6 +69,11 @@ public class Main {
 
     }
 }
+//Добавьте, кроме общей суммы, вывод информации о том,
+// в какое количество уникальных стран были оформлены доставки.
+// Уникальность означает, что если по России было отправлено,
+// например, три заказа, то учитываться это должно как одна страна.
+
 //Вашей задачей будет написание сервиса услуг доставки товаров по миру.
 //
 //Адрес доставки будет задаваться двумя данными: страна (country) и город (city).
