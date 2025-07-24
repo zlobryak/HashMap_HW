@@ -6,7 +6,7 @@ public class Address {
     protected String country;
     protected String city;
 
-    public Address(String city, String country) {
+    public Address(String country, String city) {
         this.city = city;
         this.country = country;
     }
@@ -29,11 +29,12 @@ public class Address {
         return String.format("Address: country %s, city %s", country, city);
     }
 
+    public String getCountry() {
+        return country;
+    }
+
     public String getCity() {
         return city;
     }
 
-    public String getCountry() {
-        return country;
-    }
 }

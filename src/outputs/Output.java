@@ -1,13 +1,15 @@
 package outputs;
 
+import adresses.Address;
+
 public class Output {
 
     public void init() {
         System.out.println("Приветствуем вас username!");
-        System.out.println();
     }
 
     public void newOrder() {
+        System.out.println();
         System.out.println("Заполнение нового заказа.");
     }
 
@@ -23,7 +25,20 @@ public class Output {
         System.out.print("Введите вес (кг): ");
     }
 
-    public void prise() {
+    public void cost(int cost) {
+        System.out.printf("Стоимость доставки составит: %d\n", cost);
+    }
+
+    public void totalCost(int totalCost) {
+        System.out.printf("Общая стоимость всех доставок: %d\n", totalCost);
+    }
+
+    public void gameOver() {
+        System.out.println("Программа завершена!");
+    }
+
+    public void noSuchAddress(Address address) {
+        System.out.printf("Адрес %S %S не обслуживается.\n", address.getCountry(), address.getCity());
     }
 }
 //Заполнение нового заказа.
